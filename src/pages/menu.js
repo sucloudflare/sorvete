@@ -87,7 +87,7 @@ export default function Menu() {
           {sabores.map((s, index) => (
             <div key={s} className="text-center">
               <button
-                className="btn btn-outline-warning btn-lg m-2"
+                className={`btn ${sabor === s ? 'btn-warning' : 'btn-outline-warning'} btn-lg m-2`}
                 onClick={() => setSabor(s)}
               >
                 <img 
@@ -109,7 +109,7 @@ export default function Menu() {
           {tipos.map((t) => (
             <div key={t} className="text-center">
               <button
-                className="btn btn-outline-danger btn-lg m-2"
+                className={`btn ${tipo === t ? 'btn-danger' : 'btn-outline-danger'} btn-lg m-2`}
                 onClick={() => setTipo(t)}
               >
                 <i className="fas fa-cone"></i> {t}
