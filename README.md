@@ -24,9 +24,9 @@
  <p>Para rodar o projeto localmente, siga os seguintes passos:</p>
  <ol>
 <li>Clone o repositório:
-    <pre><code>git clone https://github.com/seu-usuario/cardapio-sorveteria.git</code></pre>
+    <pre><code>git clone https://github.com/seu-usuario/sorvete.git</code></pre>
       <p>Em seguida, entre na pasta do projeto:</p>
-       <pre><code>cd cardapio-sorveteria</code></pre>
+       <pre><code>cd sorvete</code></pre>
    </li>
     <li>Instale as dependências:
      <pre><code>npm install</code></pre>
