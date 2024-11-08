@@ -90,7 +90,6 @@ export default function Menu() {
           <i className="fas fa-ice-cream"></i> Cardápio Sorveteria
         </h1>
 
-<<<<<<< HEAD
         {/* Carrossel de Sabores */}
         <div className="my-4">
           <h2 className="text-success">Escolha o sabor:</h2>
@@ -157,69 +156,9 @@ export default function Menu() {
             <li key={index} className="list-group-item">
               <strong>{item.sabor}</strong> - {item.tipo}
             </li>
-=======
-      {/* Carrossel de Sabores */}
-      <div className="my-4">
-        <h2 className="text-success">Escolha o sabor:</h2>
-        <Slider {...settings}>
-          {sabores.map((s, index) => (
-            <div key={s} className="text-center">
-              <button
-                className={`btn ${sabor === s ? 'btn-warning' : 'btn-outline-warning'} btn-lg m-2`}
-                onClick={() => setSabor(s)}
-              >
-                <img 
-                  src={`/img/sorvetes/${imagens[index]}`} 
-                  alt={s} 
-                  style={{ width: '100%', maxWidth: 150, marginRight: 10 }} // Tamanho responsivo
-                />
-                {s}
-              </button>
-            </div>
->>>>>>> a1c4ef2fe26f318a2b2c13525b18bc37171239ec
           ))}
         </ul>
       </div>
-<<<<<<< HEAD
-=======
-
-      {/* Carrossel de Tipos */}
-      <div className="my-4">
-        <h2 className="text-info">Escolha o tipo:</h2>
-        <Slider {...settings}>
-          {tipos.map((t) => (
-            <div key={t} className="text-center">
-              <button
-                className={`btn ${tipo === t ? 'btn-danger' : 'btn-outline-danger'} btn-lg m-2`}
-                onClick={() => setTipo(t)}
-              >
-                <i className="fas fa-cone"></i> {t}
-              </button>
-            </div>
-          ))}
-        </Slider>
-      </div>
-
-      {/* Ações do Carrinho */}
-      <div className="d-flex justify-content-between my-4">
-        <button className="btn btn-success btn-lg" onClick={adicionarNoCarrinho}>
-          <i className="fas fa-cart-plus"></i> Adicionar ao Carrinho
-        </button>
-        <button className="btn btn-info btn-lg" onClick={irParaCarrinho}>
-          <i className="fas fa-shopping-cart"></i> Ir para o Carrinho
-        </button>
-      </div>
-
-      {/* Exibição do Carrinho */}
-      <h3 className="mt-4">Carrinho</h3>
-      <ul className="list-group">
-        {carrinho.map((item, index) => (
-          <li key={index} className="list-group-item">
-            <strong>{item.sabor}</strong> - {item.tipo}
-          </li>
-        ))}
-      </ul>
->>>>>>> a1c4ef2fe26f318a2b2c13525b18bc37171239ec
     </div>
   );
 }
