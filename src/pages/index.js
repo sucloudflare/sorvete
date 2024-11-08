@@ -26,10 +26,7 @@ export default function Home() {
         left: 0,
         width: '100vw',
         height: '100vh',
-        backgroundImage: 'url(./bg.jpg)',  // Imagem de fundo
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
+        backgroundColor: 'pink',  // Fundo rosa
       }}
     >
       <div 
