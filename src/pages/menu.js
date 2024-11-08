@@ -36,8 +36,8 @@ export default function Menu() {
   const router = useRouter();
 
   useEffect(() => {
-    setIsClient(true); // Verifica que está no cliente após a montagem
-    setShowTutorial(true); // Mostra o tutorial apenas no cliente
+    setIsClient(true);
+    setShowTutorial(true);
   }, []);
 
   // Função para adicionar no carrinho
@@ -46,13 +46,18 @@ export default function Menu() {
       const valorItem = precos[sabor] + precos[tipo];
       setCarrinho(prevCarrinho => [
         ...prevCarrinho,
-        { sabor, tipo, valor: valorItem }
+        { id: Date.now(), sabor, tipo, valor: valorItem }
       ]);
       setSabor('');
       setTipo('');
     } else {
       alert('Escolha um sabor e um tipo de sorvete!');
     }
+  };
+
+  // Função para remover do carrinho
+  const removerDoCarrinho = (id) => {
+    setCarrinho(carrinho.filter((item) => item.id !== id));
   };
 
   // Função para gerar o comprovante
@@ -75,41 +80,14 @@ export default function Menu() {
     slidesToShow: 3,
     slidesToScroll: 1,
     responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1
-        }
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
+      { breakpoint: 1024, settings: { slidesToShow: 3, slidesToScroll: 1 } },
+      { breakpoint: 768, settings: { slidesToShow: 2, slidesToScroll: 1 } },
+      { breakpoint: 480, settings: { slidesToShow: 1, slidesToScroll: 1 } }
     ]
   };
 
   return (
-    <div 
-      style={{
-        backgroundColor: 'pink',
-        minHeight: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: '10px'
-      }}
-    >
+    <div style={{ backgroundColor: 'pink', minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '10px' }}>
       {isClient && (
         <Modal show={showTutorial} onHide={() => setShowTutorial(false)}>
           <Modal.Header closeButton>
@@ -119,9 +97,7 @@ export default function Menu() {
             Bem-vindo! Selecione um sabor e tipo de sorvete, adicione ao carrinho e escolha o método de pagamento para gerar seu comprovante.
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={() => setShowTutorial(false)}>
-              Fechar
-            </Button>
+            <Button variant="secondary" onClick={() => setShowTutorial(false)}>Fechar</Button>
           </Modal.Footer>
         </Modal>
       )}
@@ -142,16 +118,7 @@ export default function Menu() {
                     className={`btn ${sabor === s ? 'btn-warning' : 'btn-outline-warning'} btn-lg m-2`}
                     onClick={() => setSabor(s)}
                   >
-                    <Image 
-                      src={`/img/sorvetes/${imagens[index]}`} 
-                      alt={s} 
-                      width={150}
-                      height={150}
-                      style={{ 
-                        marginRight: 10,
-                        backgroundColor: 'transparent'
-                      }} 
-                    />
+                    <Image src={`/img/sorvetes/${imagens[index]}`} alt={s} width={150} height={150} style={{ marginRight: 10, backgroundColor: 'transparent' }} />
                     {s}
                   </button>
                 </div>
@@ -189,10 +156,15 @@ export default function Menu() {
         {/* Exibição do Carrinho */}
         <h3 className="mt-4">Carrinho</h3>
         <ul className="list-group">
-          {carrinho.map((item, index) => (
-            <li key={index} className="list-group-item">
-              <strong>{item.sabor}</strong> - {item.tipo} 
-              <span className="float-right">R${item.valor.toFixed(2)}</span>
+          {carrinho.map((item) => (
+            <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center">
+              <span>
+                <strong>{item.sabor}</strong> - {item.tipo} 
+              </span>
+              <span>R${item.valor.toFixed(2)}</span>
+              <button className="btn btn-danger btn-sm" onClick={() => removerDoCarrinho(item.id)}>
+                Remover
+              </button>
             </li>
           ))}
         </ul>
@@ -202,16 +174,10 @@ export default function Menu() {
         <div className="my-4">
           <h2 className="text-primary">Escolha o método de pagamento:</h2>
           <div className="d-flex justify-content-between">
-            <button
-              className={`btn ${metodoPagamento === 'cartao' ? 'btn-success' : 'btn-outline-success'} btn-lg m-2`}
-              onClick={() => setMetodoPagamento('cartao')}
-            >
+            <button className={`btn ${metodoPagamento === 'cartao' ? 'btn-success' : 'btn-outline-success'} btn-lg m-2`} onClick={() => setMetodoPagamento('cartao')}>
               Cartão
             </button>
-            <button
-              className={`btn ${metodoPagamento === 'dinheiro' ? 'btn-warning' : 'btn-outline-warning'} btn-lg m-2`}
-              onClick={() => setMetodoPagamento('dinheiro')}
-            >
+            <button className={`btn ${metodoPagamento === 'dinheiro' ? 'btn-warning' : 'btn-outline-warning'} btn-lg m-2`} onClick={() => setMetodoPagamento('dinheiro')}>
               Dinheiro
             </button>
           </div>
