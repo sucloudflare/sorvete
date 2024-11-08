@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Slider from 'react-slick';
+import { Modal, Button } from 'react-bootstrap';
 
 const sabores = ['Chocolate', 'Vanilla', 'Morango', 'Limão', 'Coco'];
 const tipos = ['Casquinha', 'Copinho', 'Taça'];
@@ -29,9 +30,10 @@ export default function Menu() {
   const [tipo, setTipo] = useState('');
   const [carrinho, setCarrinho] = useState([]);
   const [metodoPagamento, setMetodoPagamento] = useState('');
+  const [mostrarTutorial, setMostrarTutorial] = useState(true); // Controla a exibição do modal
   const router = useRouter();
 
-  // Função para adicionar no carrinho
+  // Função para adicionar ao carrinho
   const adicionarNoCarrinho = () => {
     if (sabor && tipo) {
       const valorItem = precos[sabor] + precos[tipo];
@@ -101,6 +103,28 @@ export default function Menu() {
         padding: '10px'
       }}
     >
+      {/* Modal de Tutorial */}
+      <Modal show={mostrarTutorial} onHide={() => setMostrarTutorial(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Bem-vindo ao Tutorial!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>
+            Neste aplicativo, você pode montar seu sorvete personalizado:
+          </p>
+          <ul>
+            <li>Escolha um sabor e um tipo de apresentação.</li>
+            <li>Adicione ao carrinho e veja o total atualizado.</li>
+            <li>Escolha o método de pagamento e clique em "Gerar Comprovante".</li>
+          </ul>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={() => setMostrarTutorial(false)}>
+            Começar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       <div className="container mt-5 bg-light rounded p-4 shadow-lg">
         <h1 className="text-center text-primary mb-4">
           <i className="fas fa-ice-cream"></i> Cardápio Sorveteria
