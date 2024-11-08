@@ -189,7 +189,7 @@ export default function Menu() {
         </div>
 
         {/* Botão para Gerar Comprovante */}
-        <div className="d-flex justify-content-end">
+        <div className="d-flex justify-content-center">
           <button className="btn btn-primary btn-lg" onClick={gerarComprovante}>
             Gerar Comprovante
           </button>
