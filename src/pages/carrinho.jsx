@@ -85,21 +85,35 @@ export default function Carrinho() {
       <div className="row mt-4">
         <h3 className="text-center w-100">Sabores de Sorvete</h3>
         <div className="d-flex flex-wrap justify-content-center">
-          {/* Exemplo de 4 sabores de sorvete */}
-          <div className="col-6 col-md-4 mb-3">
-            <img src="/img/sorvetes/sorvete1.png" alt="Sorvete 1" className="img-fluid" />
+          <div className="col-6 col-md-3 mb-3">
+            <img src="/img/sorvetes/sorvete1.png" alt="Sorvete 1" className="img-fluid rounded shadow-sm" />
           </div>
-          <div className="col-6 col-md-4 mb-3">
-            <img src="/img/sorvetes/sorvete2.png" alt="Sorvete 2" className="img-fluid" />
+          <div className="col-6 col-md-3 mb-3">
+            <img src="/img/sorvetes/sorvete2.png" alt="Sorvete 2" className="img-fluid rounded shadow-sm" />
           </div>
-          <div className="col-6 col-md-4 mb-3">
-            <img src="/img/sorvetes/sorvete3.png" alt="Sorvete 3" className="img-fluid" />
+          <div className="col-6 col-md-3 mb-3">
+            <img src="/img/sorvetes/sorvete3.png" alt="Sorvete 3" className="img-fluid rounded shadow-sm" />
           </div>
-          <div className="col-6 col-md-4 mb-3">
-            <img src="/img/sorvetes/sorvete4.png" alt="Sorvete 4" className="img-fluid" />
+          <div className="col-6 col-md-3 mb-3">
+            <img src="/img/sorvetes/sorvete4.png" alt="Sorvete 4" className="img-fluid rounded shadow-sm" />
           </div>
         </div>
-      </div>
+      </div><footer className="bg-primary text-white text-center py-3 mt-4">
+  <p>&copy; 2024 Sorveteria Delícia. Todos os direitos reservados.</p>
+  <p className="d-flex justify-content-center align-items-center">
+    Siga-nos nas redes sociais:
+    <a href="#" className="text-white mx-2" style={{ fontSize: '1.5rem' }}>
+      <i className="fab fa-facebook-f"></i>
+    </a>
+    <a href="#" className="text-white mx-2" style={{ fontSize: '1.5rem' }}>
+      <i className="fab fa-instagram"></i>
+    </a>
+    <a href="#" className="text-white mx-2" style={{ fontSize: '1.5rem' }}>
+      <i className="fab fa-twitter"></i>
+    </a>
+  </p>
+</footer>
+
     </div>
   );
 }
