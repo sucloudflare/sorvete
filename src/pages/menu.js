@@ -151,7 +151,7 @@ export default function Menu() {
         </div>
 
         {/* Ações do Carrinho */}
-        <div className="d-flex justify-content-between my-4 flex-wrap">
+        <div className="d-flex justify-content-center my-4 flex-wrap">
           <button className="btn btn-success btn-lg" onClick={adicionarNoCarrinho}>
             <i className="fas fa-cart-plus"></i> Adicionar ao Carrinho
           </button>
