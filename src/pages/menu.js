@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Slider from 'react-slick';
 import { Modal, Button } from 'react-bootstrap';
+import Image from 'next/image';
 
 const sabores = ['Chocolate', 'Vanilla', 'Morango', 'Limão', 'Coco'];
 const tipos = ['Casquinha', 'Copinho', 'Taça'];
@@ -30,10 +31,16 @@ export default function Menu() {
   const [tipo, setTipo] = useState('');
   const [carrinho, setCarrinho] = useState([]);
   const [metodoPagamento, setMetodoPagamento] = useState('');
-  const [mostrarTutorial, setMostrarTutorial] = useState(true); // Controla a exibição do modal
+  const [showTutorial, setShowTutorial] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const router = useRouter();
 
-  // Função para adicionar ao carrinho
+  useEffect(() => {
+    setIsClient(true); // Verifica que está no cliente após a montagem
+    setShowTutorial(true); // Mostra o tutorial apenas no cliente
+  }, []);
+
+  // Função para adicionar no carrinho
   const adicionarNoCarrinho = () => {
     if (sabor && tipo) {
       const valorItem = precos[sabor] + precos[tipo];
@@ -103,27 +110,21 @@ export default function Menu() {
         padding: '10px'
       }}
     >
-      {/* Modal de Tutorial */}
-      <Modal show={mostrarTutorial} onHide={() => setMostrarTutorial(false)} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Bem-vindo ao Tutorial!</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>
-            Neste aplicativo, você pode montar seu sorvete personalizado:
-          </p>
-          <ul>
-            <li>Escolha um sabor e um tipo de apresentação.</li>
-            <li>Adicione ao carrinho e veja o total atualizado.</li>
-            <li>Escolha o método de pagamento e clique em "Gerar Comprovante".</li>
-          </ul>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={() => setMostrarTutorial(false)}>
-            Começar
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      {isClient && (
+        <Modal show={showTutorial} onHide={() => setShowTutorial(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Tutorial</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Bem-vindo! Selecione um sabor e tipo de sorvete, adicione ao carrinho e escolha o método de pagamento para gerar seu comprovante.
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => setShowTutorial(false)}>
+              Fechar
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
 
       <div className="container mt-5 bg-light rounded p-4 shadow-lg">
         <h1 className="text-center text-primary mb-4">
@@ -133,45 +134,49 @@ export default function Menu() {
         {/* Carrossel de Sabores */}
         <div className="my-4">
           <h2 className="text-success">Escolha o sabor:</h2>
-          <Slider {...settings}>
-            {sabores.map((s, index) => (
-              <div key={s} className="text-center">
-                <button
-                  className={`btn ${sabor === s ? 'btn-warning' : 'btn-outline-warning'} btn-lg m-2`}
-                  onClick={() => setSabor(s)}
-                >
-                  <img 
-                    src={`/img/sorvetes/${imagens[index]}`} 
-                    alt={s} 
-                    style={{ 
-                      width: '100%', 
-                      maxWidth: 150, 
-                      marginRight: 10,
-                      backgroundColor: 'transparent'
-                    }} 
-                  />
-                  {s}
-                </button>
-              </div>
-            ))}
-          </Slider>
+          {isClient && (
+            <Slider {...settings}>
+              {sabores.map((s, index) => (
+                <div key={s} className="text-center">
+                  <button
+                    className={`btn ${sabor === s ? 'btn-warning' : 'btn-outline-warning'} btn-lg m-2`}
+                    onClick={() => setSabor(s)}
+                  >
+                    <Image 
+                      src={`/img/sorvetes/${imagens[index]}`} 
+                      alt={s} 
+                      width={150}
+                      height={150}
+                      style={{ 
+                        marginRight: 10,
+                        backgroundColor: 'transparent'
+                      }} 
+                    />
+                    {s}
+                  </button>
+                </div>
+              ))}
+            </Slider>
+          )}
         </div>
 
         {/* Carrossel de Tipos */}
         <div className="my-4">
           <h2 className="text-info">Escolha o tipo:</h2>
-          <Slider {...settings}>
-            {tipos.map((t) => (
-              <div key={t} className="text-center">
-                <button
-                  className={`btn ${tipo === t ? 'btn-danger' : 'btn-outline-danger'} btn-lg m-2`}
-                  onClick={() => setTipo(t)}
-                >
-                  <i className="fas fa-cone"></i> {t}
-                </button>
-              </div>
-            ))}
-          </Slider>
+          {isClient && (
+            <Slider {...settings}>
+              {tipos.map((t) => (
+                <div key={t} className="text-center">
+                  <button
+                    className={`btn ${tipo === t ? 'btn-danger' : 'btn-outline-danger'} btn-lg m-2`}
+                    onClick={() => setTipo(t)}
+                  >
+                    <i className="fas fa-cone"></i> {t}
+                  </button>
+                </div>
+              ))}
+            </Slider>
+          )}
         </div>
 
         {/* Ações do Carrinho */}
