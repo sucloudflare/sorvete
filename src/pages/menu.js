@@ -46,10 +46,6 @@ export default function Menu() {
     }
   };
 
-  const irParaCarrinho = () => {
-    router.push('/carrinho');
-  };
-
   // Função para gerar o comprovante
   const gerarComprovante = () => {
     const total = carrinho.reduce((acc, item) => acc + item.valor, 0).toFixed(2);
@@ -158,13 +154,6 @@ export default function Menu() {
         <div className="d-flex justify-content-between my-4 flex-wrap">
           <button className="btn btn-success btn-lg" onClick={adicionarNoCarrinho}>
             <i className="fas fa-cart-plus"></i> Adicionar ao Carrinho
-          </button>
-          <button 
-            className="btn btn-info btn-lg ml-2" 
-            onClick={irParaCarrinho}
-            style={{ margin: '5px' }}
-          >
-            <i className="fas fa-shopping-cart"></i> Ir para o Carrinho
           </button>
         </div>
 
