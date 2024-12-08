@@ -21,20 +21,8 @@ h2 {
 }
 
 /* Personalização de Botões */
-.btn-primary {
-  background-color: #007bff; /* Azul padrão do Bootstrap */
-  border-color: #007bff;
-}
 
-.btn-secondary {
-  background-color: #6c757d; /* Cinza padrão do Bootstrap */
-  border-color: #6c757d;
-}
 
-.btn-success {
-  background-color: #28a745; /* Verde do Bootstrap */
-  border-color: #28a745;
-}
 
 /* Estilos dos Formulários */
 .form-group {
@@ -55,20 +43,10 @@ h2 {
 }
 
 /* Efeitos em Botões ao Passar o Mouse */
-.btn-primary:hover {
-  background-color: #0056b3; /* Azul mais escuro */
-  border-color: #0056b3;
-}
 
-.btn-secondary:hover {
-  background-color: #5a6268; /* Cinza mais escuro */
-  border-color: #5a6268;
-}
 
-.btn-success:hover {
-  background-color: #218838; /* Verde mais escuro */
-  border-color: #218838;
-}
+
+
 
 /* Estilos para Containers */
 .container {
@@ -99,4 +77,87 @@ h2 {
 
 .mb-5, .my-5 {
   margin-bottom: 3rem !important;
+}
+
+
+
+
+/* Responsividade para telas pequenas */
+@media (max-width: 425px) {
+  .header {
+    flex-direction: column;
+    text-align: center;
+    height: auto;
+    padding: 20px 5%;
+  }
+
+  .header h1 {
+    font-size: 2.5rem; /* Tamanho do título ajustado */
+  }
+
+  .header p {
+    font-size: 1rem; /* Ajuste do tamanho do texto */
+  }
+
+  .header .btn {
+    width: 100%; /* Botões em tela pequena ocupando 100% de largura */
+    margin: 5px 0;
+  }
+
+  .header img {
+    max-width: 80%; /* Reduz a largura da imagem */
+    margin: 20px auto;
+  }
+
+  #sobre,
+  #contato {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  #sobre div,
+  #contato div {
+    width: 100%;
+  }
+
+  #sobre img,
+  #contato img {
+    max-width: 80%; /* Ajuste da largura das imagens */
+    margin: 20px auto;
+  }
+
+  footer {
+    font-size: 0.9rem; /* Tamanho do texto do rodapé ajustado */
+  }
+}
+
+/* Responsividade específica para telas menores que 300px */
+@media (max-width: 300px) {
+  .header h1 {
+    font-size: 1.8rem; /* Título menor para telas muito pequenas */
+  }
+
+  .header p {
+    font-size: 0.9rem; /* Reduz o tamanho da descrição */
+  }
+
+  .header .btn {
+    width: 100%; /* Botões 100% de largura */
+    height: 40px; /* Menor altura nos botões */
+    font-size: 0.9rem; /* Reduz o tamanho da fonte */
+  }
+
+  .header img {
+    max-width: 70%; /* Reduz a largura da imagem */
+    margin: 15px auto;
+  }
+
+  #sobre img,
+  #contato img {
+    max-width: 70%; /* Reduz a largura das imagens em telas muito pequenas */
+  }
+
+  footer {
+    font-size: 0.8rem; /* Reduz o tamanho do texto do rodapé */
+  }
 }

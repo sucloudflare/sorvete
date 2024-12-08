@@ -1,132 +1,285 @@
-import { useState } from 'react';
 import { useRouter } from 'next/router';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
-export default function Home() {
-  const [nome, setNome] = useState('');
-  const [showSobre, setShowSobre] = useState(false);
-  const [showContatos, setShowContatos] = useState(false);
+export default function SorveteriaLazer() {
   const router = useRouter();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (nome) {
-      router.push('/menu');
-    } else {
-      alert('Por favor, digite seu nome!');
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <div 
-      className="d-flex justify-content-center align-items-center w-100 h-100" 
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100vw',
-        height: '100vh',
-        backgroundColor: 'pink',  // Fundo rosa
-      }}
-    >
-      <div 
-        className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4 text-center p-4 rounded shadow-lg"
-        style={{
-          backgroundColor: 'rgba(255, 255, 255, 0.7)', // Fundo transparente com leve opacidade
-          backdropFilter: 'blur(8px)', // Adiciona o efeito de desfoque
-        }}
-      >
-        <h1 className="text-dark mb-4">
-          <i className="fas fa-ice-cream"></i> Bem-vindo à Sorveteria!
-        </h1>
-        <form onSubmit={handleSubmit} className="text-center">
-          <div className="form-group">
-            <label htmlFor="nome" className="text-dark">
-              <i className="fas fa-user"></i> Qual é o seu nome?
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="nome"
-              value={nome}
-              onChange={(e) => setNome(e.target.value)}
-              placeholder="Digite seu nome"
-              required
-              aria-label="Nome do usuário"
-            />
+    <div style={{ fontFamily: "'Poppins', sans-serif", overflowX: 'hidden' }}>
+      <style global jsx>{`
+        body {
+          margin: 0;
+          padding: 0;
+        }
+
+        /* Responsividade */
+        @media (max-width: 350px) {
+          .header {
+            flex-direction: column;
+            text-align: center;
+            height: auto;
+            padding: 20px 5%;
+          }
+
+          .header h1 {
+            font-size: 10px;
+            margin-top: 3rem;
+          }
+
+          .header p {
+            font-size: 1rem;
+          }
+
+          .header .btn {
+            width: 100%;
+            margin: 5px 0;
+          }
+
+          .header img {
+            max-width: 80%;
+            margin: 20px auto;
+          }
+
+          #sobre,
+          #contato {
+            flex-direction: column;
+            text-align: center;
+          }
+
+          #sobre div,
+          #contato div {
+            width: 100%;
+          }
+
+          #sobre img,
+          #contato img {
+            max-width: 80%;
+            margin: 20px auto;
+          }
+
+          footer {
+            font-size: 0.9rem;
+          }
+        }
+
+        /* Estilo global */
+        .container {
+          width: 100%;
+        }
+
+        .header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
+          height: 100vh;
+          background-color: #FFB6C1;
+          padding: 5%;
+        }
+
+        .text-container {
+          margin-top: 87px;
+          width: 49%;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: center;
+        }
+
+        .text-container h1 {
+          font-size: 3.5rem;
+          font-weight: bold;
+          color: #222;
+        }
+
+        .text-container p {
+          font-size: 1.2rem;
+          color: white;
+          margin-top: 55px;
+        }
+
+        /* Estilo dos Botões com o design específico */
+        .btn {
+          width: 99px;
+          height: 50px;
+          border: none;
+          border-radius: 30px;
+          color: white;
+          font-weight: bold;
+          transition: transform 0.3s;
+          position: relative;
+        }
+
+        .btn-info {
+          background-color: #ff85a2;
+        }
+
+        .btn-info:hover {
+          background-color: #ff4c85;
+          transform: translateY(-5px);
+        }
+
+        .btn-contato {
+          background-color: #ff85a2;
+        }
+
+        .btn-contato:hover {
+          background-color: #ff577f;
+          transform: translateY(-5px);
+        }
+
+        .btn-login {
+          background-color: #ffa4b3;
+        }
+
+        .btn-login:hover {
+          background-color: #ff6f85;
+          transform: translateY(-5px);
+        }
+
+        .image-container {
+          width: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .image-container img {
+          max-width: 100%;
+          height: auto;
+        }
+
+        section {
+          width: 100%;
+          padding: 50px 5%;
+          text-align: center;
+        }
+
+        #sobre {
+          background-color: #fcd4e5;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        #sobre img {
+          width: 50%;
+          max-width: 400px;
+          margin-right: 20px;
+        }
+
+        #contato {
+          background-color: #fcd4e5;
+        }
+
+        footer {
+          width: 100%;
+          background-color: #222;
+          color: #fff;
+          text-align: center;
+          padding: 20px 0;
+        }
+      `}</style>
+
+      <div className="header">
+        {/* Lado Esquerdo - Texto e Botões */}
+        <div className="text-container">
+          {/* Fundo de tinta derramada */}
+          <div
+            style={{
+              position: 'relative',
+              display: 'inline-block',
+              width: 'fit-content',
+            }}
+          >
+            <div
+              style={{
+                position: 'absolute',
+                top: '-17px',
+                left: '-17px',
+                width: '110%',
+                height: '143%',
+                background: 'radial-gradient(circle at 50% 50%, #ff85a2, #ff6f91)',
+                borderRadius: '60% 40% 50% 70%',
+                transform: 'rotate(-10deg)',
+                zIndex: 0,
+              }}
+            ></div>
+            <h1
+              style={{
+                position: 'relative',
+                zIndex: 1,
+                marginBottom: '0px',
+              }}
+            >
+              Sorveteria Lazer
+            </h1>
           </div>
-          <button type="submit" className="btn btn-success mt-3 w-100">
-            <i className="fas fa-sign-in-alt"></i> Entrar
-          </button>
-        </form>
-        <button 
-          onClick={() => setShowSobre(true)} 
-          className="btn btn-primary mt-3 w-100" 
-          aria-label="Sobre Mim"
-        >
-          Sobre Mim
-        </button>
-        <button 
-          onClick={() => setShowContatos(true)} 
-          className="btn btn-secondary mt-2 w-100" 
-          aria-label="Contatos"
-        >
-          Contatos
-        </button>
+          <p>Venha conhecer os sabores mais deliciosos e refrescantes da nossa sorveteria. Um lugar especial para compartilhar momentos doces e únicos!</p>
+
+          {/* Botões com o design fornecido */}
+          <div className="mt-4 d-flex" style={{ gap: '15px' }}>
+            <button
+              className="btn btn-info d-flex align-items-center justify-content-center"
+              onClick={() => scrollToSection('sobre')}
+            >
+              <i className="fas fa-info-circle" style={{ marginRight: '10px' }}></i>
+              Sobre
+            </button>
+            <button
+              className="btn btn-contato d-flex align-items-center justify-content-center"
+              onClick={() => scrollToSection('contato')}
+            >
+              <i className="fas fa-envelope" style={{ marginRight: '10px' }}></i>
+              Contato
+            </button>
+            <button
+              className="btn btn-login d-flex align-items-center justify-content-center"
+              onClick={() => router.push('/menu')}
+            >
+              <i className="fas fa-sign-in-alt" style={{ marginRight: '10px' }}></i>
+              Logar
+            </button>
+          </div>
+        </div>
+
+        {/* Lado Direito - Imagem */}
+        <div className="image-container">
+          <img src="/top.png" alt="Sorvete" />
+        </div>
       </div>
 
-      {/* Modal Sobre */}
-      {showSobre && (
-        <div 
-          className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
-          style={{ 
-            backgroundColor: 'rgba(0, 0, 0, 0.7)', 
-            zIndex: 1050, 
-            opacity: 1, 
-            transition: 'opacity 0.3s ease' 
-          }}
-          onClick={() => setShowSobre(false)}
-        >
-          <div className="bg-light p-4 rounded shadow-lg" onClick={(e) => e.stopPropagation()}>
-            <h2 className="text-center text-primary">Sobre Mim</h2>
-            <p className="text-center">Sou apaixonado por sorvetes e desenvolvedor de sites deliciosos!</p>
-            <button 
-              className="btn btn-danger w-100 mt-3" 
-              onClick={() => setShowSobre(false)}
-              aria-label="Fechar Sobre Mim"
-            >
-              Fechar
-            </button>
-          </div>
+      {/* Seção Sobre */}
+      <section id="sobre">
+        <div>
+          <h2>Sobre Nós</h2>
+          <p>
+            A Sorveteria Lazer nasceu para trazer alegria e frescor ao seu dia. Trabalhamos com dedicação para oferecer os melhores sabores e proporcionar momentos únicos para você e sua família.
+          </p>
         </div>
-      )}
+        <img src="/top1.png" alt="Sorveteria Lazer" />
+      </section>
 
-      {/* Modal Contatos */}
-      {showContatos && (
-        <div 
-          className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
-          style={{ 
-            backgroundColor: 'rgba(0, 0, 0, 0.7)', 
-            zIndex: 1050, 
-            opacity: 1, 
-            transition: 'opacity 0.3s ease' 
-          }}
-          onClick={() => setShowContatos(false)}
-        >
-          <div className="bg-light p-4 rounded shadow-lg" onClick={(e) => e.stopPropagation()}>
-            <h2 className="text-center text-secondary">Contatos</h2>
-            <p className="text-center">Email: contato@sorveteria.com.br</p>
-            <p className="text-center">Telefone: (11) 1234-5678</p>
-            <button 
-              className="btn btn-danger w-100 mt-3" 
-              onClick={() => setShowContatos(false)}
-              aria-label="Fechar Contatos"
-            >
-              Fechar
-            </button>
-          </div>
-        </div>
-      )}
+      {/* Seção Contato */}
+      <section id="contato">
+        <h2>Contato</h2>
+        <p>
+          Endereço: Rua dos Sorvetes, 123 - Saborópolis<br />
+          Telefone: (99) 99999-9999<br />
+          Email: contato@sorveterialazer.com.br
+        </p>
+      </section>
+
+      {/* Rodapé */}
+      <footer>
+        <p>© 2024 Sorveteria Lazer. Todos os direitos reservados.</p>
+      </footer>
     </div>
   );
 }
