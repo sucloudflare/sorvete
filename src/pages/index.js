@@ -275,13 +275,14 @@ export default function SorveteriaLazer() {
 
       {/* Seção Contato */}
       <section id="contato">
-        <h2>Contato</h2>
+        <h2>Fale conosco</h2>
         <p>
-          Endereço: Rua dos Sorvetes, 123 - Saborópolis
+          <i class="fa-solid fa-location-dot"></i> Rua dos Sorvetes, 123 -
+          Saborópolis
           <br />
-          Telefone: (99) 99999-9999
+          <i class="fa-solid fa-mobile-screen-button"></i> (99) 99999-9999
           <br />
-          Email: contato@sorveterialazer.com.br
+          <i class="fa-solid fa-envelope"></i> contato@sorveterialazer.com.br
         </p>
       </section>
 

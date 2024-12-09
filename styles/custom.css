@@ -60,3 +60,21 @@
 .btn-login {
   background-color: var(--color-btn-secondary);
 }
+
+#contato {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: #fff;
+  background-color: var(--color-btn-hover) !important;
+}
+
+#contato h2 {
+  font-weight: bold;
+}
+
+#contato p {
+  text-align: left;
+}
