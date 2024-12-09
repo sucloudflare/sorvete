@@ -1,6 +1,6 @@
 /* Ajuste do corpo da página */
 body {
-  background: url('/background.jpg'); /* Caminho relativo para imagens em Next.js */
+  background: url("/background.jpg"); /* Caminho relativo para imagens em Next.js */
   font-family: Arial, sans-serif;
   color: #333; /* Cor de texto padrão */
   margin: 0;
@@ -8,7 +8,9 @@ body {
 }
 
 /* Cabeçalhos personalizados */
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-weight: bold;
 }
 
@@ -21,8 +23,6 @@ h2 {
 }
 
 /* Personalização de Botões */
-
-
 
 /* Estilos dos Formulários */
 .form-group {
@@ -44,10 +44,6 @@ h2 {
 
 /* Efeitos em Botões ao Passar o Mouse */
 
-
-
-
-
 /* Estilos para Containers */
 .container {
   max-width: 800px;
@@ -63,24 +59,25 @@ h2 {
 }
 
 /* Espaçamento para botões */
-.mt-3, .my-3 {
+.mt-3,
+.my-3 {
   margin-top: 1rem !important;
 }
 
-.mb-3, .my-3 {
+.mb-3,
+.my-3 {
   margin-bottom: 1rem !important;
 }
 
-.mt-5, .my-5 {
+.mt-5,
+.my-5 {
   margin-top: 3rem !important;
 }
 
-.mb-5, .my-5 {
+.mb-5,
+.my-5 {
   margin-bottom: 3rem !important;
 }
-
-
-
 
 /* Responsividade para telas pequenas */
 @media (max-width: 425px) {
