@@ -1,4 +1,4 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Document, { Html, Head, Main, NextScript } from "next/document";
 
 class MyDocument extends Document {
   render() {
@@ -14,7 +14,7 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
           />
         </Head>
-        <body style={{ fontFamily: 'Poppins, sans-serif' }}>
+        <body style={{ fontFamily: "Poppins, sans-serif" }}>
           <Main />
           <NextScript />
         </body>
