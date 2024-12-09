@@ -10,6 +10,8 @@ export default function SorveteriaLazer() {
     }
   };
 
+  const currentYear = new Date().getFullYear();
+
   return (
     <div style={{ fontFamily: "'Poppins', sans-serif", overflowX: "hidden" }}>
       <style global jsx>{`
@@ -288,7 +290,7 @@ export default function SorveteriaLazer() {
 
       {/* Rodapé */}
       <footer>
-        <p>© 2024 Sorveteria Lazer. Todos os direitos reservados.</p>
+        <p>© {currentYear} Sorveteria Lazer. Todos os direitos reservados.</p>
       </footer>
     </div>
   );
