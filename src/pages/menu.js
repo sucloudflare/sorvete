@@ -1,29 +1,29 @@
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Slider from 'react-slick';
-import { Modal, Button } from 'react-bootstrap';
-import Image from 'next/image';
+import '../../styles/custom.css';
+import ModalHandler from './components/Modal';
+import SliderHandler from './components/SliderHandler';
+import Header from './components/Header';
 
 const sabores = ['Chocolate', 'Vanilla', 'Morango', 'Limão', 'Coco'];
 const tipos = ['Casquinha', 'Copinho', 'Taça'];
 const imagens = [
-  'sorvete.png', 
-  'sorvete1.png', 
-  'sorvete2.png', 
-  'sorvete3.png', 
+  'sorvete.png',
+  'sorvete1.png',
+  'sorvete2.png',
+  'sorvete3.png',
   'sorvete4.png'
 ];
 
 const precos = {
-  'Chocolate': 5,
-  'Vanilla': 4.5,
-  'Morango': 5.5,
-  'Limão': 4,
-  'Coco': 5,
-  'Casquinha': 1,
-  'Copinho': 1.2,
-  'Taça': 1.5
+  Chocolate: 5,
+  Vanilla: 4.5,
+  Morango: 5.5,
+  Limão: 4,
+  Coco: 5,
+  Casquinha: 1,
+  Copinho: 1.2,
+  Taça: 1.5
 };
 
 export default function Menu() {
@@ -33,34 +33,32 @@ export default function Menu() {
   const [metodoPagamento, setMetodoPagamento] = useState('');
   const [showTutorial, setShowTutorial] = useState(false);
   const [isClient, setIsClient] = useState(false);
-  const router = useRouter();
+  const [showCarrinho, setShowCarrinho] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
     setShowTutorial(true);
   }, []);
 
-  // Função para adicionar no carrinho
   const adicionarNoCarrinho = () => {
     if (sabor && tipo) {
       const valorItem = precos[sabor] + precos[tipo];
-      setCarrinho(prevCarrinho => [
+      setCarrinho((prevCarrinho) => [
         ...prevCarrinho,
         { id: Date.now(), sabor, tipo, valor: valorItem }
       ]);
       setSabor('');
       setTipo('');
+      setShowCarrinho(true); // Mostrar o modal do carrinho
     } else {
       alert('Escolha um sabor e um tipo de sorvete!');
     }
   };
 
-  // Função para remover do carrinho
   const removerDoCarrinho = (id) => {
     setCarrinho(carrinho.filter((item) => item.id !== id));
   };
 
-  // Função para gerar o comprovante
   const gerarComprovante = () => {
     const total = carrinho.reduce((acc, item) => acc + item.valor, 0).toFixed(2);
     const pagamento = metodoPagamento === 'cartao' ? 'Cartão' : 'Dinheiro';
@@ -72,77 +70,47 @@ export default function Menu() {
     `);
   };
 
-  // Configurações do carrossel
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    responsive: [
-      { breakpoint: 1024, settings: { slidesToShow: 3, slidesToScroll: 1 } },
-      { breakpoint: 768, settings: { slidesToShow: 2, slidesToScroll: 1 } },
-      { breakpoint: 480, settings: { slidesToShow: 1, slidesToScroll: 1 } }
-    ]
-  };
-
   return (
-    <div style={{ backgroundColor: 'pink', minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '10px' }}>
+    <div
+      style={{
+        backgroundColor: 'pink',
+        minHeight: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '10px'
+      }}
+    >
       {isClient && (
-        <Modal show={showTutorial} onHide={() => setShowTutorial(false)}>
-          <Modal.Header closeButton>
-            <Modal.Title>Tutorial</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            Bem-vindo! Selecione um sabor e tipo de sorvete, adicione ao carrinho e escolha o método de pagamento para gerar seu comprovante.
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={() => setShowTutorial(false)}>Fechar</Button>
-          </Modal.Footer>
-        </Modal>
+        <ModalHandler showTutorial={showTutorial} setShowTutorial={setShowTutorial} />
       )}
 
       <div className="container mt-5 bg-light rounded p-4 shadow-lg">
-        <h1 className="text-center text-primary mb-4">
-          <i className="fas fa-ice-cream"></i> Cardápio Sorveteria
-        </h1>
+        <Header />
 
         {/* Carrossel de Sabores */}
         <div className="my-4">
-          <h2 className="text-success">Escolha o sabor:</h2>
+          <h2 style={{ color: '#a36049' }}>Escolha o sabor:</h2>
           {isClient && (
-            <Slider {...settings}>
-              {sabores.map((s, index) => (
-                <div key={s} className="text-center">
-                  <button
-                    className={`btn ${sabor === s ? 'btn-warning' : 'btn-outline-warning'} btn-lg m-2`}
-                    onClick={() => setSabor(s)}
-                  >
-                    <Image src={`/img/sorvetes/${imagens[index]}`} alt={s} width={150} height={150} style={{ marginRight: 10, backgroundColor: 'transparent' }} />
-                    {s}
-                  </button>
-                </div>
-              ))}
-            </Slider>
+            <SliderHandler
+              items={sabores}
+              prop={sabor}
+              imagens={imagens}
+              setState={setSabor}
+            />
           )}
         </div>
 
         {/* Carrossel de Tipos */}
         <div className="my-4">
-          <h2 className="text-info">Escolha o tipo:</h2>
+          <h2 style={{ color: '#a36049' }}>Escolha o tipo:</h2>
           {isClient && (
-            <Slider {...settings}>
-              {tipos.map((t) => (
-                <div key={t} className="text-center">
-                  <button
-                    className={`btn ${tipo === t ? 'btn-danger' : 'btn-outline-danger'} btn-lg m-2`}
-                    onClick={() => setTipo(t)}
-                  >
-                    <i className="fas fa-cone"></i> {t}
-                  </button>
-                </div>
-              ))}
-            </Slider>
+            <SliderHandler
+              items={tipos}
+              prop={tipo}
+              imagens={imagens}
+              setState={setTipo}
+            />
           )}
         </div>
 
@@ -153,44 +121,70 @@ export default function Menu() {
           </button>
         </div>
 
-        {/* Exibição do Carrinho */}
-        <h3 className="mt-4">Carrinho</h3>
-        <ul className="list-group">
-          {carrinho.map((item) => (
-            <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center">
-              <span>
-                <strong>{item.sabor}</strong> - {item.tipo} 
-              </span>
-              <span>R${item.valor.toFixed(2)}</span>
-              <button className="btn btn-danger btn-sm" onClick={() => removerDoCarrinho(item.id)}>
-                Remover
-              </button>
-            </li>
-          ))}
-        </ul>
-        <h4 className="mt-3 text-right">Total: R${carrinho.reduce((acc, item) => acc + item.valor, 0).toFixed(2)}</h4>
-
-        {/* Opção de Método de Pagamento */}
-        <div className="my-4">
-          <h2 className="text-primary">Escolha o método de pagamento:</h2>
-          <div className="d-flex justify-content-between">
-            <button className={`btn ${metodoPagamento === 'cartao' ? 'btn-success' : 'btn-outline-success'} btn-lg m-2`} onClick={() => setMetodoPagamento('cartao')}>
-              Cartão
-            </button>
-            <button className={`btn ${metodoPagamento === 'dinheiro' ? 'btn-warning' : 'btn-outline-warning'} btn-lg m-2`} onClick={() => setMetodoPagamento('dinheiro')}>
-              Dinheiro
-            </button>
+        {/* Modal do Carrinho */}
+        {showCarrinho && (
+          <div
+            className="modal fade show d-block"
+            tabIndex="-1"
+            style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+          >
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">Carrinho</h5>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    onClick={() => setShowCarrinho(false)}
+                  ></button>
+                </div>
+                <div className="modal-body">
+                  <ul className="list-group">
+                    {carrinho.map((item) => (
+                      <li
+                        key={item.id}
+                        className="list-group-item d-flex justify-content-between align-items-center"
+                      >
+                        <span>
+                          <strong>{item.sabor}</strong> - {item.tipo}
+                        </span>
+                        <span>R${item.valor.toFixed(2)}</span>
+                        <button
+                          className="btn btn-danger btn-sm"
+                          onClick={() => removerDoCarrinho(item.id)}
+                        >
+                          Remover
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                  <h4 className="mt-3 text-right">
+                    Total: R$
+                    {carrinho.reduce((acc, item) => acc + item.valor, 0).toFixed(2)}
+                  </h4>
+                </div>
+                <div className="modal-footer">
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => {
+                      gerarComprovante();
+                      setShowCarrinho(false);
+                    }}
+                  >
+                    Gerar Comprovante
+                  </button>
+                  <button
+                    className="btn btn-secondary"
+                    onClick={() => setShowCarrinho(false)}
+                  >
+                    Fechar
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-
-        {/* Botão para Gerar Comprovante */}
-        <div className="d-flex justify-content-center">
-          <button className="btn btn-primary btn-lg" onClick={gerarComprovante}>
-            Gerar Comprovante
-          </button>
-        </div>
+        )}
       </div>
     </div>
   );
 }
- 
