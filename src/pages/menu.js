@@ -109,7 +109,7 @@ export default function Menu() {
 
         {/* Carrossel de Sabores */}
         <div className="my-4">
-          <h2 className="text-success">Escolha o sabor:</h2>
+          <h2 className=" text-success">Escolha o sabor:</h2>
           {isClient && (
             <Slider {...settings}>
               {sabores.map((s, index) => (
