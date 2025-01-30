@@ -1,5 +1,12 @@
 import { useRouter } from 'next/router';
 
+/**
+ * Copyright (c) 2025 Edson Bruno
+ * Todos os direitos reservados.
+ * Este código não pode ser reproduzido, distribuído ou modificado sem permissão.
+ */
+
+
 export default function SorveteriaLazer() {
   const router = useRouter();
 
